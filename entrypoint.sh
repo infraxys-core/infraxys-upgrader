@@ -17,12 +17,11 @@ function backup_and_prepare() {
   cd /opt/infraxys > /dev/null;
   log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
   mkdir -p backups;
-  #tar -czf backups/$backup_filename --exclude='backups' *;
+  tar -czf backups/$backup_filename --exclude='backups' *;
   cd - > /dev/null;
   . ./env.sh;
   docker-compose -f stack.yml up -d db;
   sleep 30
-
 }
 
 function upgrade_database() {
@@ -33,22 +32,22 @@ function upgrade_database() {
   cd /
   if [ "$first_upgrade" != "true" ]; then
     log "Retrieving the current DB version from the database.";
-    current_db_version="$($mysql_command -N -e 'select max(VERSION) from db_version_history;')";
+    current_version="$($mysql_command -N -e 'select max(VERSION) from version_history;')";
   fi;
 
-  if [ -z "$current_db_version" -o "$current_db_version" == "NULL" ]; then
-      current_db_version="1";
+  if [ -z "$current_version" -o "$current_version" == "NULL" ]; then
+      current_version="1";
   fi;
 
-  if [ "$current_db_version" -eq "$required_db_version" ]; then
+  if [ "$current_version" -eq "$required_db_version" ]; then
     log "Database is already at version $required_db_version.";
     return;
-  elif [ "$current_db_version" -gt "$required_db_version" ]; then
-    log "Database is in a higher version ($current_db_version) then the requested one ($required_db_version). Aborting.";
+  elif [ "$current_version" -gt "$required_db_version" ]; then
+    log "Database is in a higher version ($current_version) then the requested one ($required_db_version). Aborting.";
     return;
   fi;
 
-  log "Upgrading from Infraxys DB version $current_db_version to $required_db_version.";
+  log "Upgrading from Infraxys DB version $current_version to $required_db_version.";
 
   cd sql;
   for f in $(ls -1 *\.sql | sort -n -k1); do
@@ -57,7 +56,7 @@ function upgrade_database() {
 
     file_version="${f#"upgrade_"}";
     file_version="${file_version%".sql"}";
-    if [ "$file_version" -gt "$current_db_version" ]; then
+    if [ "$file_version" -gt "$current_version" ]; then
       if [ "$file_version" -gt "$required_db_version" ]; then
         log "Stopping upgrade since we're already at the required version $required_db_version.";
         break;
@@ -68,9 +67,9 @@ function upgrade_database() {
           log "Executing SQL script $f.";
           $mysql_command < $f;
           log "Setting version in database to $file_version.";
-          $mysql_command -N -e "insert into db_version_history (version) values ($file_version)";
+          $mysql_command -N -e "insert into version_history (version) values ($file_version)";
         fi;
-        current_db_version="$file_version";
+        current_version="$file_version";
       fi;
     fi;
   done;

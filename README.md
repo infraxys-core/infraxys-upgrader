@@ -1,6 +1,5 @@
 # Infraxys upgrade manager
 
-This repository creates a Docker container that is run at Infraxys startup. 
+A Docker image and files to upgrade Infraxys Server and Developer. 
 
-It makes sure the database is in the expected version.
 
