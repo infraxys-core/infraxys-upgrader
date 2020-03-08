@@ -2,6 +2,7 @@
   "versions": [
     {
       "version": "1.4",
+      "releaseNotes": "Infraxys version 1.4 release notes ...",
       "released": "2020-01-25 09:15",
       "dbVersion": 3,
       "shVersion": 3
