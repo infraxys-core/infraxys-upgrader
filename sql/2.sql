@@ -5,10 +5,11 @@ CREATE TABLE `version_history`
     `USER_CREATE` varchar(320)         DEFAULT NULL,
     `USER_UPDATE` varchar(320)         DEFAULT NULL,
     `DT_UPDATE`   datetime             DEFAULT NULL,
-    `VERSION`     varchar(20) NOT NULL,
+    `RELEASE_NUMBER`     int(10),
+    `INFRAXYS_VERSION`     varchar(20) NOT NULL,
     `REMARKS`     longtext             DEFAULT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `UK_ENVIRONMENTS` (`VERSION`)
+    UNIQUE KEY `UK_VERSION_HISTORY` (`RELEASE_NUMBER`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;

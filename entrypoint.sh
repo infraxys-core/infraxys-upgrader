@@ -25,29 +25,27 @@ function backup_and_prepare() {
 }
 
 function upgrade_database() {
-  local required_db_version="$1";
-  local first_upgrade="$2";
   local mysql_command="mysql -h db -u infraxys -pinfraxys infraxys";
 
   cd /
   if [ "$first_upgrade" != "true" ]; then
     log "Retrieving the current DB version from the database.";
-    current_version="$($mysql_command -N -e 'select max(VERSION) from version_history;')";
+    current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
   fi;
 
-  if [ -z "$current_version" -o "$current_version" == "NULL" ]; then
-      current_version="1";
+  if [ -z "$current_release_number" -o "$current_release_number" == "NULL" ]; then
+      current_release_number="1";
   fi;
 
-  if [ "$current_version" -eq "$required_db_version" ]; then
-    log "Database is already at version $required_db_version.";
+  if [ "$current_release_number" -eq "$to_release_number" ]; then
+    log "Database is already at version $to_release_number.";
     return;
-  elif [ "$current_version" -gt "$required_db_version" ]; then
-    log "Database is in a higher version ($current_version) then the requested one ($required_db_version). Aborting.";
+  elif [ "$current_release_number" -gt "$to_release_number" ]; then
+    log "Database is in a higher version ($current_release_number) then the requested one ($to_release_number). Aborting.";
     return;
   fi;
 
-  log "Upgrading from Infraxys DB version $current_version to $required_db_version.";
+  log "Upgrading from Infraxys DB version $current_release_number to $to_release_number.";
 
   cd sql;
   for f in $(ls -1 *\.sql | sort -n -k1); do
@@ -56,9 +54,9 @@ function upgrade_database() {
 
     file_version="${f#"upgrade_"}";
     file_version="${file_version%".sql"}";
-    if [ "$file_version" -gt "$current_version" ]; then
-      if [ "$file_version" -gt "$required_db_version" ]; then
-        log "Stopping upgrade since we're already at the required version $required_db_version.";
+    if [ "$file_version" -gt "$current_release_number" ]; then
+      if [ "$file_version" -gt "$to_release_number" ]; then
+        log "Stopping upgrade since we're already at the required version $to_release_number.";
         break;
       else
         if [ -n "$dry_run" ]; then
@@ -67,9 +65,8 @@ function upgrade_database() {
           log "Executing SQL script $f.";
           $mysql_command < $f;
           log "Setting version in database to $file_version.";
-          $mysql_command -N -e "insert into version_history (version) values ($file_version)";
         fi;
-        current_version="$file_version";
+        current_release_number="$file_version";
       fi;
     fi;
   done;
@@ -77,19 +74,16 @@ function upgrade_database() {
 }
 
 function perform_upgrade() {
-  local required_db_version="$1";
-  local required_sh_version="$2";
   local first_upgrade="false";
 
   backup_and_prepare;
   if [ ! -f "$versions_file" ]; then
     first_upgrade="true";
-    write_versions "$required_db_version";
+    write_versions $to_release_number "$to_infraxys_version";
   fi;
   . "$versions_file";
 
-  upgrade_database "$required_db_version" "$first_upgrade";
-
+  upgrade_database;
 
   if [ "$infraxys_mode" == "DEVELOPER" ]; then
     cd /opt/infraxys/bin;
@@ -112,7 +106,7 @@ function log() {
 
 function usage() {
   cat << EOF
-  Usage: <Docker run command> required_db_version required_other_version db_hostname db_user db_password db_name infraxys_mode [DRY_RUN=true]
+  Usage: <Docker run command> to_release_number to_infraxys_version db_hostname db_user db_password db_name infraxys_mode [DRY_RUN=true]
 
          docker run --network infraxys-developer --rm -it \
           -v /opt/infraxys:/opt/infraxys:rw \
@@ -135,8 +129,8 @@ fi;
 
 config_dir="/opt/infraxys/config";
 versions_file="$config_dir/VERSIONS";
-required_db_version="$1";
-required_other_version="$2";
+to_release_number="$1";
+to_infraxys_version="$2";
 db_hostname="$3";
 db_user="$4";
 db_password="$5";

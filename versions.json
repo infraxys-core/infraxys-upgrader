@@ -1,11 +1,10 @@
 {
   "versions": [
     {
-      "version": "1.4",
+      "releaseNumber": 2,
+      "infraxysVersion": "1.4",
       "releaseNotes": "Infraxys version 1.4 release notes ...",
-      "released": "2020-01-25 09:15",
-      "dbVersion": 2,
-      "shVersion": 1
+      "released": "2020-01-25 09:15"
     }
   ]
 }
