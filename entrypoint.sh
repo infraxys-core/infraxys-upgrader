@@ -70,7 +70,6 @@ function upgrade_database() {
         else
           log "Executing SQL script $f.";
           $mysql_command < $f;
-          log "Setting version in database to $file_version.";
         fi;
         current_release_number="$file_version";
       fi;
@@ -96,6 +95,13 @@ function perform_upgrade() {
   else
     cd /opt/infraxys/docker/infraxys;
   fi;
+  if [ -n "$dry_run" ]; then
+    log "Would update the version_history table.";
+  else
+    log "Updating the version_history table";
+    $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
+  fi;
+
   log "Starting Infraxys";
   ./up.sh;
 }

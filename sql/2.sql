@@ -1,13 +1,13 @@
-CREATE TABLE `version_history`
+CREATE TABLE if not exists `version_history`
 (
-    `ID`          bigint(22)  NOT NULL AUTO_INCREMENT,
-    `DT_CREATE`   timestamp   NOT NULL DEFAULT current_timestamp(),
-    `USER_CREATE` varchar(320)         DEFAULT NULL,
-    `USER_UPDATE` varchar(320)         DEFAULT NULL,
-    `DT_UPDATE`   datetime             DEFAULT NULL,
-    `RELEASE_NUMBER`     int(10),
-    `INFRAXYS_VERSION`     varchar(20) NOT NULL,
-    `REMARKS`     longtext             DEFAULT NULL,
+    `ID`               bigint(22)  NOT NULL AUTO_INCREMENT,
+    `DT_CREATE`        timestamp   NOT NULL DEFAULT current_timestamp(),
+    `USER_CREATE`      varchar(320)         DEFAULT NULL,
+    `USER_UPDATE`      varchar(320)         DEFAULT NULL,
+    `DT_UPDATE`        datetime             DEFAULT NULL,
+    `RELEASE_NUMBER`   int(10),
+    `INFRAXYS_VERSION` varchar(20) NOT NULL,
+    `REMARKS`          longtext             DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_VERSION_HISTORY` (`RELEASE_NUMBER`)
 ) ENGINE = InnoDB
@@ -83,4 +83,6 @@ SELECT `pf`.`id`                             AS `id`,
 FROM (`packet_files` `pf`
          JOIN `packets` `p` ON (`pf`.`PACKET_ID` = `p`.`id`));
 
-update core_class_attributes set caption_key = 'Ref.:' where name = 'guid';
+update core_class_attributes
+set caption_key = 'Ref.:'
+where name = 'guid';
