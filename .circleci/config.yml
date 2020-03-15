@@ -47,8 +47,10 @@ jobs:
               export FULL_VERSION="$(cat VERSION)_${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}";
               export RELEASE_VERSION="$(cat VERSION)";
               docker tag ${IMAGE}:${FULL_VERSION} ${IMAGE}:${RELEASE_VERSION};
-              echo "This is master. Pushing version ${RELEASE_VERSION}.";
+              docker tag ${IMAGE}:${FULL_VERSION} ${IMAGE}:latest;
+              echo "This is master. Pushing version ${RELEASE_VERSION} and latest.";
               docker push ${IMAGE}:${RELEASE_VERSION};
+              docker push ${IMAGE}:latest;
             fi;
 
 
