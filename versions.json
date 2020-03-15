@@ -1,7 +1,7 @@
 {
   "versions": [
     {
-      "releaseNumber": 2,
+      "releaseNumber": 3,
       "infraxysVersion": "1.5.43",
       "releaseNotes": "Infraxys release notes ...",
       "released": "2020-03-15 12:00"
