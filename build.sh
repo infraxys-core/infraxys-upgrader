@@ -2,7 +2,11 @@
 
 set -eo pipefail;
 
-VERSION="$(cat VERSION)";
+if [ -n "$1" ]; then
+  VERSION="$1";
+else
+  VERSION="$(cat VERSION)";
+fi;
 
 docker build -f Dockerfile -t quay.io/jeroenmanders/infraxys-upgrader:$VERSION .;
 
