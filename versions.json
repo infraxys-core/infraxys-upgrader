@@ -2,9 +2,9 @@
   "versions": [
     {
       "releaseNumber": 2,
-      "infraxysVersion": "1.4",
-      "releaseNotes": "Infraxys version 1.4 release notes ...",
-      "released": "2020-01-25 09:15"
+      "infraxysVersion": "1.5.42",
+      "releaseNotes": "Infraxys version 1.5.42 release notes ...",
+      "released": "2020-03-15 12:00"
     }
   ]
 }
