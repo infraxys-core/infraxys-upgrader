@@ -4,7 +4,8 @@ set -eo pipefail;
 
 function backup_and_prepare() {
   local backup_filename="infraxys-full-backup-$(date +%Y%m%d%H%M%S).tgz";
-  log "Stopping and clearing the Infraxyd Docker containers.";
+  log "Stopping and clearing the Infraxys Docker containers.";
+  export SILENT="true";
   if [ "$infraxys_mode" == "DEVELOPER" ]; then
     cd /opt/infraxys/bin;
     ./stop.sh;
@@ -18,8 +19,13 @@ function backup_and_prepare() {
   log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
   mkdir -p backups;
   tar -czf backups/$backup_filename --exclude='backups' *;
-  cd - > /dev/null;
-  . ./env.sh;
+  if [ "$infraxys_mode" == "DEVELOPER" ]; then
+    cd /opt/infraxys/bin;
+    . ./env.sh;
+  else
+    cd /opt/infraxys/docker/infraxys;
+    . ../env;
+  fi;
   docker-compose -f stack.yml up -d db;
   sleep 30
 }
