@@ -31,8 +31,6 @@ function backup_and_prepare() {
 }
 
 function upgrade_database() {
-  local mysql_command="mysql -h db -u infraxys -pinfraxys infraxys";
-
   cd /
   if [ "$first_upgrade" != "true" ]; then
     log "Retrieving the current DB version from the database.";
@@ -162,4 +160,5 @@ if [ "$infraxys_mode" != "DEVELOPER" -a "$infraxys_mode" != "SERVER" ]; then
   exit 1;
 fi;
 
+mysql_command="mysql -h db -u infraxys -pinfraxys infraxys";
 perform_upgrade "$@";
