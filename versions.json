@@ -5,6 +5,12 @@
       "infraxysVersion": "1.5.43",
       "releaseNotes": "Infraxys release notes ...",
       "released": "2020-03-15 12:00"
+    },
+    {
+      "releaseNumber": 4,
+      "infraxysVersion": "1.5.53",
+      "releaseNotes": "Fixes and allow default tokens and keys for git-domains",
+      "released": "2020-03-21 14:35"
     }
   ]
 }
