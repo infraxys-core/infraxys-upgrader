@@ -1,4 +1,4 @@
-CREATE TABLE `git_host_settings`
+CREATE TABLE IF NOT EXISTS `git_host_settings`
 (
     `id`                      bigint(22)   NOT NULL AUTO_INCREMENT,
     `DT_CREATE`               timestamp    NOT NULL DEFAULT current_timestamp(),
@@ -28,7 +28,6 @@ insert into core_class_attributes (core_class_id, name, type_class_name, caption
                                    visibility_level, writability, order_order, list_order)
 values ((select id from core_classes where name = 'GitHostSettings'), 'hostname', 'java.lang.String', 'Name', 1, 1000, 1, 1, 1, 0,
         'ALWAYS VISIBLE', 'NEVER', 100, 100);
-
 
 
 update containers

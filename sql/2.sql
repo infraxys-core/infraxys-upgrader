@@ -26,15 +26,17 @@ delete
 from menu_items
 where caption_key = 'Flush cache';
 ALTER TABLE `infraxys`.`packet_files`
-    DROP INDEX `UK_PF_GUID`;
+    DROP INDEX IF EXISTS `UK_PF_GUID`;
 ALTER TABLE `infraxys`.`packet_files`
-    ADD INDEX `PF_GUID` (`guid` ASC);
+    ADD INDEX IF EXISTS `PF_GUID` (`guid` ASC);
 ALTER TABLE `infraxys`.`environments`
-    DROP INDEX `UK_ENVIRONMENT_GUID`;
+    DROP INDEX IF EXISTS `UK_ENVIRONMENT_GUID`;
 ALTER TABLE `infraxys`.`environments`
-    ADD INDEX `ENVIRONMENT_GUID` (`guid` ASC);
+    ADD INDEX IF EXISTS `ENVIRONMENT_GUID` (`guid` ASC);
 ALTER TABLE `infraxys`.`instances`
-    DROP INDEX `UK_INSTANCE_GUID`;
+    DROP INDEX IF EXISTS `UK_INSTANCE_GUID`;
+ALTER TABLE `infraxys`.`instances`
+    DROP INDEX IF EXISTS `INSTANCE_GUID`;
 ALTER TABLE `infraxys`.`instances`
     ADD INDEX `INSTANCE_GUID` (`guid` ASC);
 
