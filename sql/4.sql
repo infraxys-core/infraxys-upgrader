@@ -17,17 +17,44 @@ CREATE TABLE IF NOT EXISTS `git_host_settings`
 
 insert into core_classes (package_name, name, service_class_name, caption_key, form_class_name, container_class_name,
                           edit_in_popup, popup_width, popup_height)
-values ('com.infraxys.base.githostsettings', 'GitHostSettings', 'com.infraxys.base.githostsettings.GitHostSettingsServiceImpl', 'Teams',
-        'com.infraxys.base.githostsettings.GitHostSettingsForm',
-        'com.infraxys.base.githostsettings.GitHostSettings', 1, 400, 500);
+select 'com.infraxys.base.githostsettings',
+       'GitHostSettings',
+       'com.infraxys.base.githostsettings.GitHostSettingsServiceImpl',
+       'GitHostSettings',
+       'com.infraxys.base.githostsettings.GitHostSettingsForm',
+       'com.infraxys.base.githostsettings.GitHostSettingsContainer',
+       1,
+       400,
+       500
+from dual
+where not exists(select name from core_classes where name = 'GitHostSettings');
 
+update core_classes
+set caption_key = 'GitHostSettings'
+where name = 'GitHostSettings';
 
 insert into core_class_attributes (core_class_id, name, type_class_name, caption_key, detail_form_column,
                                    detail_form_order, required, clone_attribute, auto_export_to_script,
                                    filter_in_suggest,
                                    visibility_level, writability, order_order, list_order)
-values ((select id from core_classes where name = 'GitHostSettings'), 'hostname', 'java.lang.String', 'Name', 1, 1000, 1, 1, 1, 0,
-        'ALWAYS VISIBLE', 'NEVER', 100, 100);
+select (select id from core_classes where name = 'GitHostSettings'),
+       'hostname',
+       'java.lang.String',
+       'Name',
+       1,
+       1000,
+       1,
+       1,
+       1,
+       0,
+       'ALWAYS VISIBLE',
+       'NEVER',
+       100,
+       100
+where not exists(select name
+                 from core_class_attributes
+                 where core_class_id = (select id from core_classes where name = 'GitHostSettings')
+                   and name = 'hostname');
 
 
 update containers
