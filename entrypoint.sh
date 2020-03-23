@@ -80,11 +80,11 @@ function perform_upgrade() {
   local first_upgrade="false";
 
   backup_and_prepare;
-  if [ ! -f "$versions_file" ]; then
+
+  table_exists="$($mysql_command -N -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = "infraxys" AND table_name = "version_history";')";
+  if [ "$table_exists" == "0" ]; then
     first_upgrade="true";
-    write_versions $to_release_number "$to_infraxys_version";
   fi;
-  . "$versions_file";
 
   upgrade_database;
 
@@ -98,14 +98,12 @@ function perform_upgrade() {
   else
     log "Updating the version_history table";
     $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
+    log "Updating version in config/variables/TOMCAT_VERSION."
+    echo "$to_infraxys_version" > /opt/infraxys/config/variables/TOMCAT_VERSION;
   fi;
 
   log "Starting Infraxys";
   ./up.sh;
-}
-
-function write_versions() {
-  echo -e "SH=$1" > "$versions_file";
 }
 
 function log() {
@@ -138,7 +136,6 @@ if [ $# -ne 8 -a $# -ne 9 ]; then
 fi;
 
 config_dir="/opt/infraxys/config";
-versions_file="$config_dir/VERSIONS";
 to_release_number="$1";
 to_infraxys_version="$2";
 db_hostname="$3";
