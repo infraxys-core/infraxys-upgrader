@@ -93,13 +93,15 @@ function perform_upgrade() {
   else
     cd /opt/infraxys/docker/infraxys;
   fi;
-  if [ -n "$dry_run" ]; then
-    log "Would update the version_history table.";
-  else
-    log "Updating the version_history table";
-    $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
-    log "Updating version in config/variables/TOMCAT_VERSION."
-    echo "$to_infraxys_version" > /opt/infraxys/config/variables/TOMCAT_VERSION;
+  if [ "$current_release_number" -ne "$to_release_number" ]; then
+    if [ -n "$dry_run" ]; then
+      log "Would update the version_history table.";
+    else
+      log "Updating the version_history table";
+      $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
+      log "Updating version in config/variables/TOMCAT_VERSION."
+      echo "$to_infraxys_version" > /opt/infraxys/config/vars/TOMCAT_VERSION;
+    fi;
   fi;
 
   log "Starting Infraxys";
