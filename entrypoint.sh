@@ -104,8 +104,8 @@ function perform_upgrade() {
       log "Updating the version_history table";
       $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
       if [ "$infraxys_mode" == "DEVELOPER" ]; then
-        log "Setting Tomcat Docker image version to ${VERSION} in config/variables.";
-        sed -i'' -e "s/export TOMCAT_VERSION=.*/export TOMCAT_VERSION=${VERSION}/g" /opt/infraxys/config/variables;
+        log "Setting Tomcat Docker image version to $to_infraxys_version in config/variables.";
+        sed -i'' -e "s/export TOMCAT_VERSION=.*/export TOMCAT_VERSION=${to_infraxys_version}/g" /opt/infraxys/config/variables;
       else
         log "Updating version in config/vars/TOMCAT_VERSION."
         echo "$to_infraxys_version" > /opt/infraxys/config/vars/TOMCAT_VERSION;
