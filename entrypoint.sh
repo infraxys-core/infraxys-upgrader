@@ -70,11 +70,12 @@ function upgrade_database() {
           log "Executing SQL script $f.";
           $mysql_command < $f;
         fi;
+        database_upgraded="true";
         current_release_number="$file_version";
       fi;
     fi;
   done;
-  cd -;
+  cd - >/dev/null;
 }
 
 function perform_upgrade() {
@@ -84,17 +85,19 @@ function perform_upgrade() {
 
   table_exists="$($mysql_command -N -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = "infraxys" AND table_name = "version_history";')";
   if [ "$table_exists" == "0" ]; then
+    log "This database has not been upgraded yet.";
     first_upgrade="true";
   fi;
 
   upgrade_database;
 
+  log "Database upgrade complete.";
   if [ "$infraxys_mode" == "DEVELOPER" ]; then
     cd /opt/infraxys/bin;
   else
     cd /opt/infraxys/docker/infraxys;
   fi;
-  if [ "$current_release_number" -ne "$to_release_number" ]; then
+  if [ "$database_upgraded" == "true" ]; then
     if [ -n "$dry_run" ]; then
       log "Would update the version_history table.";
     else
@@ -106,6 +109,17 @@ function perform_upgrade() {
   fi;
 
   log "Starting Infraxys";
+  pwd
+  echo -
+  ls -l ..
+  echo -
+  ls -l ../data;
+  echo -
+  echo -
+  ls -l ../data/mysql;
+  echo -
+  echo -
+  echo -
   ./up.sh;
 }
 
@@ -138,6 +152,7 @@ if [ $# -ne 8 -a $# -ne 9 ]; then
   exit 1;
 fi;
 
+export database_upgraded="false";
 config_dir="/opt/infraxys/config";
 to_release_number="$1";
 to_infraxys_version="$2";
