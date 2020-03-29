@@ -114,18 +114,12 @@ function perform_upgrade() {
   fi;
 
   log "Starting Infraxys";
-  pwd
-  echo -
-  ls -l ..
-  echo -
-  ls -l ../data;
-  echo -
-  echo -
-  ls -l ../data/mysql;
-  echo -
-  echo -
-  echo -
-  ./up.sh;
+  if [ "$infraxys_mode" == "DEVELOPER" ]; then
+    . ./env.sh;
+  else
+    . ../env;
+  fi;
+  docker-compose -f stack.yml up -d;
 }
 
 function log() {
