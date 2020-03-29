@@ -26,6 +26,7 @@ function backup_and_prepare() {
     cd /opt/infraxys/docker/infraxys;
     . ../env;
   fi;
+  log "Starting the database.";
   docker-compose -f stack.yml up -d db;
   sleep 30
 }

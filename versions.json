@@ -11,6 +11,12 @@
       "infraxysVersion": "1.5.53",
       "releaseNotes": "Fixes and allow default tokens and keys for git-domains",
       "released": "2020-03-21 14:35"
+    },
+    {
+      "releaseNumber": 5,
+      "infraxysVersion": "1.5.69",
+      "releaseNotes": "Add markdown viewer",
+      "released": "2020-03-29 13:38"
     }
   ]
 }
