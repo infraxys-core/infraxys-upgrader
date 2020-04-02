@@ -44,13 +44,13 @@ function upgrade_database() {
       current_release_number=1;
   fi;
 
+  newer_version="true";
+
   if [ "$current_release_number" -eq "$to_release_number" ]; then
     log "Database is already at version $to_release_number.";
-    newer_version="true";
     return;
   elif [ "$current_release_number" -gt "$to_release_number" ]; then
     log "Database is in a higher version ($current_release_number) then the requested one ($to_release_number). Aborting.";
-    newer_version="true";
     return;
   fi;
 
@@ -75,7 +75,6 @@ function upgrade_database() {
           $mysql_command < $f;
         fi;
         current_release_number="$file_version";
-        newer_version="true";
       fi;
     fi;
   done;
