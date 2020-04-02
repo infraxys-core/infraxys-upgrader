@@ -2,6 +2,8 @@
 
 set -eo pipefail;
 
+export newer_version="false";
+
 function backup_and_prepare() {
   local backup_filename="infraxys-full-backup-$(date +%Y%m%d%H%M%S).tgz";
   log "Stopping and clearing the Infraxys Docker containers.";
@@ -39,14 +41,16 @@ function upgrade_database() {
   fi;
 
   if [ -z "$current_release_number" -o "$current_release_number" == "NULL" ]; then
-      current_release_number="1";
+      current_release_number=1;
   fi;
 
   if [ "$current_release_number" -eq "$to_release_number" ]; then
     log "Database is already at version $to_release_number.";
+    newer_version="true";
     return;
   elif [ "$current_release_number" -gt "$to_release_number" ]; then
     log "Database is in a higher version ($current_release_number) then the requested one ($to_release_number). Aborting.";
+    newer_version="true";
     return;
   fi;
 
@@ -70,8 +74,8 @@ function upgrade_database() {
           log "Executing SQL script $f.";
           $mysql_command < $f;
         fi;
-        database_upgraded="true";
         current_release_number="$file_version";
+        newer_version="true";
       fi;
     fi;
   done;
@@ -97,7 +101,8 @@ function perform_upgrade() {
   else
     cd /opt/infraxys/docker/infraxys;
   fi;
-  if [ "$database_upgraded" == "true" ]; then
+  log "Newer version: $newer_version.";
+  if [ "$newer_version" == "true" ]; then
     if [ -n "$dry_run" ]; then
       log "Would update the version_history table.";
     else
@@ -151,7 +156,6 @@ if [ $# -ne 8 -a $# -ne 9 ]; then
   exit 1;
 fi;
 
-export database_upgraded="false";
 config_dir="/opt/infraxys/config";
 to_release_number="$1";
 to_infraxys_version="$2";
