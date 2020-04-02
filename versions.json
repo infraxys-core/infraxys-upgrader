@@ -17,6 +17,12 @@
       "infraxysVersion": "1.5.69",
       "releaseNotes": "Add markdown viewer",
       "released": "2020-03-29 13:38"
+    },
+    {
+      "releaseNumber": 6,
+      "infraxysVersion": "1.5.70",
+      "releaseNotes": "Fix duplicate hostname",
+      "released": "2020-03-29 15:46"
     }
   ]
 }
