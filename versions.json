@@ -23,6 +23,12 @@
       "infraxysVersion": "1.5.70",
       "releaseNotes": "Fix duplicate hostname",
       "released": "2020-03-29 15:46"
+    },
+    {
+      "releaseNumber": 7,
+      "infraxysVersion": "1.5.75",
+      "releaseNotes": "Optimize import",
+      "released": "2020-04-07 18:46"
     }
   ]
 }
