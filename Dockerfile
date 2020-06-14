@@ -1,5 +1,4 @@
 FROM alpine:3.11
-# FROM mariadb:10.4.8
 
 RUN apk update \
   && apk upgrade \
