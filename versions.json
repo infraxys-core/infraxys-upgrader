@@ -2,9 +2,9 @@
   "versions": [
     {
       "releaseNumber": 3,
-      "infraxysVersion": "2.0.421",
-      "releaseNotes": "Enable personal access tokens for API-requests",
-      "released": "2020-06-14"
+      "infraxysVersion": "2.0.463",
+      "releaseNotes": "Add Python class generator",
+      "released": "2020-06-28"
     }
   ]
 }
