@@ -1,7 +1,7 @@
 {
   "versions": [
     {
-      "releaseNumber": 7,
+      "releaseNumber": 8,
       "infraxysVersion": "2.0.490",
       "releaseNotes": "Git-integration improvements",
       "released": "2020-07-19"
