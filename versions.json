@@ -2,8 +2,8 @@
   "versions": [
     {
       "releaseNumber": 3,
-      "infraxysVersion": "2.0.463",
-      "releaseNotes": "Add Python class generator",
+      "infraxysVersion": 2.0.514",
+      "releaseNotes": "Add Python class generator and caches",
       "released": "2020-06-28"
     }
   ]
