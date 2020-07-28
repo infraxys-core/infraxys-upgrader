@@ -76,6 +76,8 @@ function upgrade_database() {
         fi;
         current_release_number="$file_version";
       fi;
+    else
+        log "Not processing this file since it's already applied."
     fi;
   done;
   cd - >/dev/null;
