@@ -1,14 +1,14 @@
 ALTER TABLE `infraxys`.`actions`
-    DROP COLUMN `action_version_revision`,
-    DROP COLUMN `action_version_minor`,
-    DROP COLUMN `action_version_major`,
-    DROP COLUMN `action_version_build`,
-    DROP COLUMN `PACKET_VERSION_BUILD`,
-    DROP COLUMN `PACKET_VERSION_REV`,
-    DROP COLUMN `PACKET_VERSION_MINOR`,
-    DROP COLUMN `PACKET_VERSION_MAJOR`,
-    ADD COLUMN `packet_file_sha` VARCHAR(128) NULL DEFAULT NULL,
-    ADD COLUMN `instance_sha`    VARCHAR(128) NULL DEFAULT NULL;
+    DROP COLUMN if exists `action_version_revision`,
+    DROP COLUMN if exists `action_version_minor`,
+    DROP COLUMN if exists `action_version_major`,
+    DROP COLUMN if exists `action_version_build`,
+    DROP COLUMN if exists `PACKET_VERSION_BUILD`,
+    DROP COLUMN if exists `PACKET_VERSION_REV`,
+    DROP COLUMN if exists `PACKET_VERSION_MINOR`,
+    DROP COLUMN if exists `PACKET_VERSION_MAJOR`,
+    ADD COLUMN  if not exists `packet_file_sha` VARCHAR(128) NULL DEFAULT NULL,
+    ADD COLUMN  if not exists `instance_sha`    VARCHAR(128) NULL DEFAULT NULL;
 
 
 alter table actions
@@ -20,7 +20,7 @@ ALTER TABLE `infraxys`.`action_logs`
 ALTER TABLE `infraxys`.`action_logs`
     ADD COLUMN if not exists `workflow_run_guid` VARCHAR(750) NULL DEFAULT NULL AFTER `environment_guid`;
 
-CREATE TABLE `run_history`
+CREATE TABLE if not exists `run_history`
 (
     `id`                 bigint(22)   NOT NULL AUTO_INCREMENT,
     `DT_CREATE`          timestamp    NOT NULL DEFAULT current_timestamp(),
@@ -43,7 +43,7 @@ CREATE TABLE `run_history`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
-CREATE TABLE `run_history_details`
+CREATE TABLE if not exists `run_history_details`
 (
     `id`             bigint(22)  NOT NULL AUTO_INCREMENT,
     `DT_CREATE`      timestamp   NOT NULL DEFAULT current_timestamp(),
