@@ -8,8 +8,6 @@ else
   VERSION="$(cat VERSION)";
 fi;
 
-./build_changelog.py
-
 docker build -f Dockerfile -t quay.io/jeroenmanders/infraxys-upgrader:$VERSION .;
 
 docker tag quay.io/jeroenmanders/infraxys-upgrader:$VERSION quay.io/jeroenmanders/infraxys-upgrader:latest
