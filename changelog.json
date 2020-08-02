@@ -8,7 +8,7 @@
         {
           "type": "Added",
           "title": "Multiple inheritance for packets",
-          "description": "Packets can extend multiple other packets and many levels deep.<br/>Attributes and files are inherited.<br/>Extend the Terraform runner packet and inherit the plan and apply actions, for example."
+          "description": "Packets can extend multiple other packets and many levels deep.<br/>Attributes and files are inherited.<br/>Extend the Terraform runner packet and inherit the plan and apply actions, for example. See [Packet](https://infraxys.io/concepts/resource-types/packet/) for more information."
         }
       ]
     },
