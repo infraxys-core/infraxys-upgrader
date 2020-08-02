@@ -1,7 +1,7 @@
 {
   "log": [
     {
-      "version": "Unreleased",
+      "version": "2.0.519",
       "date": "2020-08-02",
       "product": "Infraxys",
       "changes": [
@@ -20,7 +20,7 @@
           "type": "Added",
           "product": "Terraform",
           "title": "Confirmers; require approval/confirmation to apply a plan.",
-          "description": "Confirmers are non-default ways to require some kind of confirmation before a Terraform plan can be applied. The SES-email confirmer, for example, sends a mail to one or more email-address contain the Terraform plan for review and a button to directly apply the plan."
+          "description": "Confirmers are non-default ways to require some kind of confirmation before a Terraform plan can be applied. The SES-email confirmer, for example, sends an email to one or more email-address contain the Terraform plan for review and a button to directly apply the plan."
         }
       ]
     },
@@ -37,7 +37,7 @@
         {
           "type": "Added",
           "title": "5 cache levels",
-          "description": "Cache binaries, Terraform plans, data and re-use it in action of the same instance, container, environment or project.<br/>A global cache is also available which is readable by any action, but can only be written to from actions in environments that are linked directly under the root-project.<br/>See [Cache concept](https://infraxys.io/topics/caching/) for more details."
+          "description": "Cache binaries, Terraform plans and provisioners, data, ... and re-use it in actions of the same instance, container, environment or project.<br/>A global cache is also available which is readable by any action, but can only be written to from actions in environments that are linked directly under the root-project.<br/>See [Cache concept](https://infraxys.io/topics/caching/) for more details."
         }
       ]
     }

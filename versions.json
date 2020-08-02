@@ -5,6 +5,12 @@
       "infraxysVersion": "2.0.514",
       "releaseNotes": "Add Python class generator and caches",
       "released": "2020-07-26"
+    },
+     {
+      "releaseNumber": 10,
+      "infraxysVersion": "2.0.519",
+      "releaseNotes": "Add multiple inheritance including attributes",
+      "released": "2020-08-02"
     }
   ]
 }
