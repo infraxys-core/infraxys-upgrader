@@ -35,12 +35,13 @@ function backup_and_prepare() {
 
 function run_upgrade_scripts() {
     cd /bash;
+    local tmp_release="$current_release_number";
     for f in $(ls -1 *\.sh | sort -n -k1); do
         f="$(basename "$f")" # remove ./
         log "Processing file $f";
 
         file_version="${f%".sh"}";
-        if [ "$file_version" -gt "$current_release_number" ]; then
+        if [ "$file_version" -gt "$tmp_release" ]; then
             if [ "$file_version" -gt "$to_release_number" ]; then
                 log "Stopping script upgrade since we're already at the required version $to_release_number.";
                 break;
@@ -51,7 +52,7 @@ function run_upgrade_scripts() {
                     log "Executing script $f.";
                     ./$f;
                 fi;
-                current_release_number="$file_version";
+                tmp_release="$file_version";
             fi;
         else
             log "Not processing this file since it's already applied."
