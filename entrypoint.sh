@@ -4,11 +4,6 @@ set -eo pipefail;
 
 export do_upgrade="false";
 
-function get_current_release_number() {
-    log "Retrieving the current DB version from the database.";
-    export current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
-}
-
 function backup_and_prepare() {
     local backup_filename="infraxys-full-backup-$(date +%Y%m%d%H%M%S)-${current_release_number}.tgz";
     log "Stopping and clearing the Infraxys Docker containers.";
@@ -104,8 +99,7 @@ function upgrade_database() {
     cd - >/dev/null;
 }
 
-function perform_upgrade() {
-    get_current_release_number;
+function perform_upgrade() {;
     backup_and_prepare;
 
     run_upgrade_scripts
@@ -195,4 +189,7 @@ if [ "$infraxys_mode" != "DEVELOPER" -a "$infraxys_mode" != "SERVER" ]; then
 fi;
 
 mysql_command="mysql -h db -u infraxys -pinfraxys infraxys";
+log "Retrieving the current DB version from the database.";
+export current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
+log "Current release: $current_release_number";
 perform_upgrade "$@";
