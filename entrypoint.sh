@@ -39,7 +39,7 @@ function run_upgrade_scripts() {
         f="$(basename "$f")" # remove ./
         log "Processing file $f";
 
-        file_version="${file_version%".sql"}";
+        file_version="${file_version%".sh"}";
         if [ "$file_version" -gt "$current_release_number" ]; then
             if [ "$file_version" -gt "$to_release_number" ]; then
                 log "Stopping script upgrade since we're already at the required version $to_release_number.";
