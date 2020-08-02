@@ -99,7 +99,7 @@ function upgrade_database() {
     cd - >/dev/null;
 }
 
-function perform_upgrade() {;
+function perform_upgrade() {
     backup_and_prepare;
 
     run_upgrade_scripts
