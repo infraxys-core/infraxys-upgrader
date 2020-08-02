@@ -112,8 +112,7 @@ function perform_upgrade() {
     else
         cd /opt/infraxys/docker/infraxys;
     fi;
-    log "Newer version: $newer_version.";
-    if [ "$newer_version" == "true" ]; then
+    if [ "$do_upgrade" == "true" ]; then
         if [ -n "$dry_run" ]; then
             log "Would update the version_history table.";
         else
