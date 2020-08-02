@@ -2,4 +2,5 @@
 
 set -eo pipefail;
 
-docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
+# This currently gives "Permission denied"
+# docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
