@@ -2,6 +2,17 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [Unreleased] - 2020-08-08 - [Infraxys](https://infraxys.io)
+
+## Added
+- Auto-run workflows optional on pull
+    > Workflows that are configured to run automatically after updates are done to its repository will always run when triggered through a webhook.<br/>When pulling changes manually, there's a new menu through which the workflow execution can be avoided.
+
+
+## Changed
+- Git pulls with local changes
+    > When a branch is pulled, either directly or because it's a dependency, then the pull won't be done if there are local changes in the branch.
+
 ## [2.0.519] - 2020-08-02 - [Infraxys](https://infraxys.io)
 
 ## Added

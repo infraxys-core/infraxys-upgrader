@@ -12,5 +12,11 @@
       "releaseNotes": "Add multiple inheritance including attributes",
       "released": "2020-08-02"
     }
+     {
+      "releaseNumber": 11,
+      "infraxysVersion": "2.0.526",
+      "releaseNotes": "Optional auto-pull, env-sync fix and refuse pull in branch that has local changes",
+      "released": "2020-08-09"
+    }
   ]
 }

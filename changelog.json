@@ -1,6 +1,23 @@
 {
   "log": [
     {
+      "version": "2.0.526",
+      "date": "2020-08-08",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Changed",
+          "title": "Git pulls with local changes",
+          "description": "When a branch is pulled, either directly or because it's a dependency, then the pull won't be done if there are local changes in the branch."
+        },
+        {
+          "type": "Added",
+          "title": "Auto-run workflows optional on pull",
+          "description": "Workflows that are configured to run automatically after updates are done to its repository will always run when triggered through a webhook.<br/>When pulling changes manually, there's a new menu through which the workflow execution can be avoided."
+        }
+      ]
+    },
+    {
       "version": "2.0.519",
       "date": "2020-08-02",
       "product": "Infraxys",
