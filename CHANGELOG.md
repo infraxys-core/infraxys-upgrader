@@ -2,7 +2,15 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
-## [Unreleased] - 2020-08-08 - [Infraxys](https://infraxys.io)
+## [2.0.553] - 2020-08-16 - [Infraxys](https://infraxys.io)
+
+## Added
+- Git dialog shows remote changes
+    > Remote changes are inspected and displayed when a user selects a branch in the Git dialog. This helps to avoid merge conflicts.
+- Project selection shows all containers in all child environments
+    > When a user selects a project in the project tree, then the container-table will be loaded with all containers that below to an environment of the project or any of its children.
+
+## [2.0.526] - 2020-08-08 - [Infraxys](https://infraxys.io)
 
 ## Added
 - Auto-run workflows optional on pull

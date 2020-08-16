@@ -17,6 +17,12 @@
       "infraxysVersion": "2.0.526",
       "releaseNotes": "Optional auto-pull, env-sync fix and refuse pull in branch that has local changes",
       "released": "2020-08-09"
+    },
+     {
+      "releaseNumber": 12,
+      "infraxysVersion": "2.0.553",
+      "releaseNotes": "Git improvements",
+      "released": "2020-08-16"
     }
   ]
 }

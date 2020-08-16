@@ -1,6 +1,23 @@
 {
   "log": [
     {
+      "version": "2.0.553",
+      "date": "2020-08-16",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Git dialog shows remote changes",
+          "description": "Remote changes are inspected and displayed when a user selects a branch in the Git dialog. This helps to avoid merge conflicts."
+        },
+        {
+          "type": "Added",
+          "title": "Project selection shows all containers in all child environments",
+          "description": "When a user selects a project in the project tree, then the container-table will be loaded with all containers that below to an environment of the project or any of its children."
+        }
+      ]
+    },
+    {
       "version": "2.0.526",
       "date": "2020-08-08",
       "product": "Infraxys",
