@@ -23,6 +23,12 @@
       "infraxysVersion": "2.0.553",
       "releaseNotes": "Git improvements",
       "released": "2020-08-16"
+    },
+     {
+      "releaseNumber": 13,
+      "infraxysVersion": "2.0.554",
+      "releaseNotes": "Git improvements",
+      "released": "2020-08-16"
     }
   ]
 }
