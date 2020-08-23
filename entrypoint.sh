@@ -90,6 +90,7 @@ function upgrade_database() {
                 else
                     log "Executing SQL script $f.";
                     $mysql_command < $f;
+                    log "Script $f finished."
                 fi;
                 current_release_number="$file_version";
             fi;
@@ -192,6 +193,7 @@ fi;
 
 mysql_command="mysql -h db -u infraxys -pinfraxys infraxys";
 log "Retrieving the current DB version from the database.";
+$mysql_command -N -e 'select * from version_history;'
 export current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
 log "Current release: $current_release_number";
 perform_upgrade "$@";
