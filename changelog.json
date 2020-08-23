@@ -1,6 +1,23 @@
 {
   "log": [
     {
+      "version": "2.0.563",
+      "date": "2020-08-23",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Changed",
+          "title": "Share project cache with all child projects and the global-cache is removed.",
+          "description": "Specify in the project details if the project cache should be made available (readonly) to all child projects.<br/>Enter an alias for the cache name to use for the directory. The cache will be available at /cache/project/<cache alias or at /cache/project/<project guid> if no alias is specified.<br/>This cache-sharing makes the global cache obsolete so it has been removed in this release."
+        },
+        {
+          "type": "Added",
+          "title": "Copy and move environments between branches.",
+          "description": "It's now possible to copy and move environments with their containers to other branches.<br/>Be careful though, because another Infraxys environment that uses the (re)moved environment will become invalid."
+        }
+      ]
+    },
+    {
       "version": "2.0.553",
       "date": "2020-08-16",
       "product": "Infraxys",
@@ -52,7 +69,6 @@
       "changes": [
         {
           "type": "Added",
-          "product": "Terraform",
           "title": "Confirmers; require approval/confirmation to apply a plan.",
           "description": "Confirmers are non-default ways to require some kind of confirmation before a Terraform plan can be applied. The SES-email confirmer, for example, sends an email to one or more email-address contain the Terraform plan for review and a button to directly apply the plan."
         }

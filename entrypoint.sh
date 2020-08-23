@@ -116,8 +116,8 @@ function perform_upgrade() {
         if [ -n "$dry_run" ]; then
             log "Would update the version_history table.";
         else
-            log "Updating the version_history table";
-            $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version')";
+            log "Adding version $to_release_number to the version_history table";
+            $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version');";
             if [ "$infraxys_mode" == "DEVELOPER" ]; then
                 log "Setting Tomcat Docker image version to $to_infraxys_version in config/variables.";
                 sed -i'' -e "s/export TOMCAT_VERSION=.*/export TOMCAT_VERSION=${to_infraxys_version}/g" /opt/infraxys/config/variables;
@@ -135,6 +135,8 @@ function perform_upgrade() {
     . ../env;
     fi;
     docker-compose -f stack.yml up -d;
+    log "Pulling latest provisioning server image";
+    docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
 }
 
 function log() {
