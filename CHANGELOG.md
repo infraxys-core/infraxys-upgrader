@@ -2,6 +2,17 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.563] - 2020-08-23 - [Infraxys](https://infraxys.io)
+
+## Added
+- Copy and move environments between branches.
+    > It's now possible to copy and move environments with their containers to other branches.<br/>Be careful though, because another Infraxys environment that uses the (re)moved environment will become invalid if they have the environment attached to a project.
+
+
+## Changed
+- Share project cache with all child projects and the global-cache is removed.
+    > Specify in the project details if the project cache should be made available (readonly) to all child projects.<br/>Enter an alias for the cache name to use for the directory. The cache will be available at /cache/project/<cache alias or at /cache/project/<project guid> if no alias is specified.<br/>This cache-sharing makes the global cache obsolete so it has been removed in this release.
+
 ## [2.0.553] - 2020-08-16 - [Infraxys](https://infraxys.io)
 
 ## Added

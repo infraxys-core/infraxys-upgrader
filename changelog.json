@@ -13,7 +13,7 @@
         {
           "type": "Added",
           "title": "Copy and move environments between branches.",
-          "description": "It's now possible to copy and move environments with their containers to other branches.<br/>Be careful though, because another Infraxys environment that uses the (re)moved environment will become invalid."
+          "description": "It's now possible to copy and move environments with their containers to other branches.<br/>Be careful though, because another Infraxys environment that uses the (re)moved environment will become invalid if they have the environment attached to a project."
         }
       ]
     },
