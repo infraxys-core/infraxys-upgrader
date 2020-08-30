@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "2.0.568",
+      "date": "2020-08-30",
+      "product": "Infraxys Developer",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Mount host directories in action runner containers.",
+          "description": "Host directories can be mounted into action containers using the 'Host mounts'-tab in the Settings-view. Use this to share files betwwen the host and all actions, like SSH configurations. Generate SSH configs for AWS VPCs, for example, and automatically make them available to the host."
+        }
+      ]
+    },
+    {
       "version": "2.0.563",
       "date": "2020-08-23",
       "product": "Infraxys",

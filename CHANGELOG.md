@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.568] - 2020-08-30
+
+## Added
+- Mount host directories in action runner containers.
+    > Host directories can be mounted into action containers using the 'Host mounts'-tab in the Settings-view. Use this to share files betwwen the host and all actions, like SSH configurations. Generate SSH configs for AWS VPCs, for example, and automatically make them available to the host.
+
 ## [2.0.563] - 2020-08-23 - [Infraxys](https://infraxys.io)
 
 ## Added
