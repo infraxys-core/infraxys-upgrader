@@ -9,27 +9,43 @@ function backup_and_prepare() {
     log "Stopping and clearing the Infraxys Docker containers.";
     export SILENT="true";
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
-        cd /opt/infraxys/bin;
-        ./stop.sh;
-        ./rm.sh;
+        echo "Windows mode: $WINDOWS_MODE"
+        if [ "$WINDOWS_MODE" == "true" ]; then
+            docker stop infraxys-developer-tomcat;
+            docker stop infraxys-developer-web;
+            docker stop infraxys-developer-vault;
+            docker stop infraxys-developer-db;
+            #docker rm infraxys-developer-tomcat;
+            #docker rm infraxys-developer-web;
+            #docker rm infraxys-developer-vault;
+            #docker rm infraxys-developer-db;
+        else
+            cd /opt/infraxys/bin;
+            ./stop.sh;
+            ./rm.sh;
+        fi;
     else
         cd /opt/infraxys/docker/infraxys;
         ./stop.sh;
         docker-compose -f stack.yml rm -f;
     fi;
     cd /opt/infraxys > /dev/null;
-    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
-    mkdir -p backups;
-    tar -czf backups/$backup_filename --exclude='backups' *;
-    if [ "$infraxys_mode" == "DEVELOPER" ]; then
-        cd /opt/infraxys/bin;
-        . ./env.sh;
+    if [ "$WINDOWS_MODE" == "true" ]; then
+        docker start infraxys-developer-db;
     else
-        cd /opt/infraxys/docker/infraxys;
-        . ../env;
+        log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
+        mkdir -p backups;
+        tar -czf backups/$backup_filename --exclude='backups' *;
+        if [ "$infraxys_mode" == "DEVELOPER" ]; then
+            cd /opt/infraxys/bin;
+            . ./env.sh;
+        else
+            cd /opt/infraxys/docker/infraxys;
+            . ../env;
+        fi;
+        log "Starting the database.";
+        docker-compose -f stack.yml up -d db;
     fi;
-    log "Starting the database.";
-    docker-compose -f stack.yml up -d db;
     sleep 30;
 }
 
@@ -120,8 +136,13 @@ function perform_upgrade() {
             log "Adding version $to_release_number to the version_history table";
             $mysql_command -N -e "insert into version_history (release_number, infraxys_version) values ($to_release_number, '$to_infraxys_version');";
             if [ "$infraxys_mode" == "DEVELOPER" ]; then
-                log "Setting Tomcat Docker image version to $to_infraxys_version in config/variables.";
-                sed -i'' -e "s/export TOMCAT_VERSION=.*/export TOMCAT_VERSION=${to_infraxys_version}/g" /opt/infraxys/config/variables;
+                if [ "$WINDOWS_MODE" == "true" ]; then
+                    log "Setting Tomcat Docker image version to $to_infraxys_version in env.bat.";
+                    sed -i'' -e "s/set TOMCAT_VERSION=.*/set TOMCAT_VERSION=${to_infraxys_version}/g" /opt/infraxys/bin/env.bat;
+                else
+                    log "Setting Tomcat Docker image version to $to_infraxys_version in config/variables.";
+                    sed -i'' -e "s/export TOMCAT_VERSION=.*/export TOMCAT_VERSION=${to_infraxys_version}/g" /opt/infraxys/config/variables;
+                fi;
             else
                 log "Updating version in config/vars/TOMCAT_VERSION."
                 echo "$to_infraxys_version" > /opt/infraxys/config/vars/TOMCAT_VERSION;
@@ -129,13 +150,20 @@ function perform_upgrade() {
         fi;
     fi;
 
-    log "Starting Infraxys";
-    if [ "$infraxys_mode" == "DEVELOPER" ]; then
-    . ./env.sh;
+    if [ "$WINDOWS_MODE" == "true" ]; then
+        echo
+        echo "===================="
+        echo "Please start Infraxys using up.bat";
+        echo "===================="
     else
-    . ../env;
+        log "Starting Infraxys";
+        if [ "$infraxys_mode" == "DEVELOPER" ]; then
+            . ./env.sh;
+        else
+            . ../env;
+        fi;
+        docker-compose -f stack.yml up -d;
     fi;
-    docker-compose -f stack.yml up -d;
     log "Pulling latest provisioning server image";
     docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
 }
@@ -169,7 +197,6 @@ if [ $# -ne 8 -a $# -ne 9 ]; then
     exit 1;
 fi;
 
-config_dir="/opt/infraxys/config";
 to_release_number="$1";
 to_infraxys_version="$2";
 db_hostname="$3";
