@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "2.0.581",
+      "date": "2020-09-06",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Specify JSON files for tables and dropdowns in custom forms and get filter results back through files.",
+          "description": "When adding a datapart for a JSON table or dropdown, you can now specify the path to a cache- or module-file.<br/>To get the contents of a table using Python, just call the store_selected_items function on the JsonForm.<br/>This is useful when the user can filter a table and perform actions against the result.<br/>Example request: <br/>```{ \"requestType\": \"UI\",\n            \"subType\": \"STORE SELECTED ITEMS\",\n            \"objectId\": object_id}```"
+        }
+      ]
+    },
+    {
       "version": "2.0.568",
       "date": "2020-08-30",
       "product": "Infraxys Developer",
@@ -112,7 +124,11 @@
       "url": "https://infraxys.io"
     },
     {
-     "name": "Terraform",
+      "name": "Infraxys Developer",
+      "url": "https://infraxys.io"
+    },
+    {
+      "name": "Terraform",
       "url": "https://github.com/infraxys-modules/terraform"
     }
   ]

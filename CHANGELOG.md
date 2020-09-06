@@ -2,7 +2,15 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
-## [2.0.568] - 2020-08-30
+## [2.0.581] - 2020-09-06 - [Infraxys](https://infraxys.io)
+
+## Added
+- Specify JSON files for tables and dropdowns in custom forms and get filter results back through files.
+    > When adding a datapart for a JSON table or dropdown, you can now specify the path to a cache- or module-file.<br/>To get the contents of a table using Python, just call the store_selected_items function on the JsonForm.<br/>This is useful when the user can filter a table and perform actions against the result.<br/>Example request: <br/>```{ "requestType": "UI",
+            "subType": "STORE SELECTED ITEMS",
+            "objectId": object_id}```
+
+## [2.0.568] - 2020-08-30 - [Infraxys Developer](https://infraxys.io)
 
 ## Added
 - Mount host directories in action runner containers.

@@ -41,6 +41,12 @@
       "infraxysVersion": "2.0.568",
       "releaseNotes": "See changelog",
       "released": "2020-08-30"
+    },
+    {
+      "releaseNumber": 16,
+      "infraxysVersion": "2.0.581",
+      "releaseNotes": "See changelog",
+      "released": "2020-09-06"
     }
   ]
 }
