@@ -54,7 +54,7 @@ function run_upgrade_scripts() {
     local tmp_release="$current_release_number";
     for f in $(ls -1 *\.sh | sort -n -k1); do
         f="$(basename "$f")" # remove ./
-        log "Processing file $f";
+        log "Validating file $f";
 
         file_version="${f%".sh"}";
         if [ "$file_version" -gt "$tmp_release" ]; then
@@ -93,7 +93,7 @@ function upgrade_database() {
     cd sql;
     for f in $(ls -1 *\.sql | sort -n -k1); do
         f="$(basename "$f")" # remove ./
-        log "Processing file $f";
+        log "Validating file $f";
 
         file_version="${f%".sql"}";
         if [ "$file_version" -gt "$current_release_number" ]; then
