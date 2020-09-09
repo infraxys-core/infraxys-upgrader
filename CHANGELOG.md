@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.582] - 2020-09-08 - [Infraxys](https://infraxys.io)
+
+## Added
+- Add quick runners - actions without dependencies
+    > When using quick runners, which is a new checkbox in the packet file view, Infraxys will launch the action directly without preparing dependencies. Only the current environment's files, arguments,json, has_grant and current_user.json are available. No modules nor variables.
+
 ## [2.0.581] - 2020-09-06 - [Infraxys](https://infraxys.io)
 
 ## Added

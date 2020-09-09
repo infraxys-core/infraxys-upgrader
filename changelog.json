@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "2.0.582",
+      "date": "2020-09-08",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Add quick runners - actions without dependencies",
+          "description": "When using quick runners, which is a new checkbox in the packet file view, Infraxys will launch the action directly without preparing dependencies. Only the current environment's files, arguments,json, has_grant and current_user.json are available. No modules nor variables."
+        }
+      ]
+    },
+    {
       "version": "2.0.581",
       "date": "2020-09-06",
       "product": "Infraxys",
