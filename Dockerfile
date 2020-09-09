@@ -5,9 +5,14 @@ RUN apk update \
   && apk add bash \
   && apk add mariadb-client \
   && apk add openrc docker \
-  && apk add py-pip \
-  && apk add python-dev libffi-dev openssl-dev gcc libc-dev make \
-  && pip install docker-compose
+  && apk add libffi-dev openssl-dev gcc libc-dev make
+
+#RUN apk add py-pip \
+#  && apk add python-dev libffi-dev openssl-dev gcc libc-dev make
+RUN apk add python3
+RUN apk add py3-pip
+RUN  apk add python3-dev
+RUN pip3 install docker-compose
 
 
 COPY entrypoint.sh /entrypoint.sh
