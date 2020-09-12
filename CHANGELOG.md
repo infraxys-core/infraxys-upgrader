@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.586] - 2020-09-12 - [Infraxys](https://infraxys.io)
+
+## Added
+- Added dialog types and options for Json Forms
+    > Pass custom button lists (from Bash, Python, ...) through the FEEDBACK-process.
+
 ## [2.0.582] - 2020-09-08 - [Infraxys](https://infraxys.io)
 
 ## Added
