@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "2.0.587",
+      "date": "2020-09-13",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "JsonTables can now have columns with hyperlinks",
+          "description": "Add attributes 'columnType' and 'linkField' to the column-definition of a table to make it display the values for the property with a link to the value of the linkField-attribute."
+        }
+      ]
+    },
+    {
       "version": "2.0.586",
       "date": "2020-09-12",
       "product": "Infraxys",

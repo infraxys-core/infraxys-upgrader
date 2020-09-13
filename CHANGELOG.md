@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.587] - 2020-09-13 - [Infraxys](https://infraxys.io)
+
+## Added
+- JsonTables can now have columns with hyperlinks
+    > Add attributes 'columnType' and 'linkField' to the column-definition of a table to make it display the values for the property with a link to the value of the linkField-attribute.
+
 ## [2.0.586] - 2020-09-12 - [Infraxys](https://infraxys.io)
 
 ## Added
