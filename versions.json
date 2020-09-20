@@ -1,16 +1,16 @@
 {
   "versions": [
     {
-      "releaseNumber": 19,
-      "infraxysVersion": "2.0.587",
-      "releaseNotes": "See changelog",
-      "released": "2020-09-13"
-    },
-    {
       "releaseNumber": 20,
       "infraxysVersion": "2.0.600",
       "releaseNotes": "See changelog",
       "released": "2020-09-20"
+    },
+    {
+      "releaseNumber": 19,
+      "infraxysVersion": "2.0.587",
+      "releaseNotes": "See changelog",
+      "released": "2020-09-13"
     },
     {
       "releaseNumber": 18,
