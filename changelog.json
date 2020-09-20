@@ -1,6 +1,23 @@
 {
   "log": [
     {
+      "version": "2.0.600",
+      "date": "2020-09-20",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Add React apps, JavaScript, charts, ... or include html pages in JSON forms.",
+          "description": "Copy any HTML, CSS, JavaScript, JSX, ... to the project cache and reference them in the JsonForm specification. Add an iframe that references an external site or create full-blown, dynamic D3.js graph views. A walkthrough will be added to Infraxys-by-example soon."
+        },
+        {
+          "type": "Added",
+          "title": "You can now export JsonTables to csv files",
+          "description": "An export-button is added to JsonTable components if new attribute 'enableExport' is specified with value 'true'."
+        }
+      ]
+    },
+    {
       "version": "2.0.587",
       "date": "2020-09-13",
       "product": "Infraxys",

@@ -2,6 +2,14 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [2.0.600] - 2020-09-20 - [Infraxys](https://infraxys.io)
+
+## Added
+- Add React apps, JavaScript, charts, ... or include html pages in JSON forms.
+    > Copy any HTML, CSS, JavaScript, JSX, ... to the project cache and reference them in the JsonForm specification. Add an iframe that references an external site or create full-blown, dynamic D3.js graph views. A walkthrough will be added to Infraxys-by-example soon.
+- You can now export JsonTables to csv files
+    > An export-button is added to JsonTable components if new attribute 'enableExport' is specified with value 'true'.
+
 ## [2.0.587] - 2020-09-13 - [Infraxys](https://infraxys.io)
 
 ## Added
