@@ -2,11 +2,11 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
-## [3.0.20] - 2020-09-27 - [Infraxys Developer](https://infraxys.io)
+## [3.0.21] - 2020-09-27 - [Infraxys Developer](https://infraxys.io)
 
 ## Changed
-- Moved from HTTPS to HTTP.
-    > You may want to update the port Infraxys listens on
+- [ATTENTION] Moved from HTTPS to HTTP. You need to clear your browsers cache to avoid continuous reload.
+    > Infraxys Developer will run on http://localhost:<PORT> instead of https://localhost:<PORT> after this upgrade.
 
 ## [2.0.600] - 2020-09-20 - [Infraxys](https://infraxys.io)
 

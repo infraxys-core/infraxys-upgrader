@@ -1,14 +1,14 @@
 {
   "log": [
     {
-      "version": "3.0.20",
+      "version": "3.0.21",
       "date": "2020-09-27",
       "product": "Infraxys Developer",
       "changes": [
         {
           "type": "Changed",
-          "title": "[ATTENTION] Moved from HTTPS to HTTP. You need to update your Docker configuration after the upgrade",
-          "description": "Infraxys Developer will run on http://localhost:<PORT> instead of https://localhost:<PORT> after this upgrade. You will need to replace '- ${LOCAL_PORT}
+          "title": "[ATTENTION] Moved from HTTPS to HTTP. You need to clear your browsers cache to avoid continuous reload.",
+          "description": "Infraxys Developer will run on http://localhost:<PORT> instead of https://localhost:<PORT> after this upgrade."
         }
       ]
     },    {

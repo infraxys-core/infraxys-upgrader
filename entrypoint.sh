@@ -170,6 +170,8 @@ function perform_upgrade() {
     docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
     log "Pulling latest web image";
     docker pull quay.io/jeroenmanders/infraxys-web:latest;
+    log "Pulling runner image";
+    docker pull quay.io/jeroenmanders/infraxys-runner:$to_infraxys_version;
 }
 
 function log() {

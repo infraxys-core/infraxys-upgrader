@@ -2,7 +2,7 @@
   "versions": [
     {
       "releaseNumber": 21,
-      "infraxysVersion": "3.0.20",
+      "infraxysVersion": "3.0.21",
       "releaseNotes": "See changelog",
       "released": "2020-09-27"
     },
