@@ -81,7 +81,7 @@ function run_upgrade_scripts() {
                 else
                     log "Executing script $f.";
                     chmod u+x "$f";
-                    ./$f;
+                    . ./$f;
                     cd /bash; # ensure we're back in the right directory
                 fi;
                 tmp_release="$file_version";
