@@ -10,6 +10,7 @@ function load_env_from_windows_bat() {
         log "Executing export $row'";
         eval "export $row'";
     done;
+    export LOCAL_DIR="$(echo "/$LOCAL_DIR" | sed 's/:\\/\//' | sed 's/\\/\//g')"; # we need to use Linux-paths in this container
 }
 
 function backup_and_prepare() {
