@@ -40,9 +40,9 @@ function backup_and_prepare() {
     log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
     mkdir -p backups;
     tar -czf backups/$backup_filename --exclude='backups' *;
-    cd /opt/infraxys/bin;
 
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
+        cd /opt/infraxys/bin;
         if [ "$WINDOWS_MODE" != "true" ]; then
             . ./env.sh;
         fi;
