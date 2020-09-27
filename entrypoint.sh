@@ -5,7 +5,7 @@ set -eo pipefail;
 export do_upgrade="false";
 
 function load_env_from_windows_bat() {
-    local batch_file="$1";
+    local batch_file="/opt/infraxys/bin/env.bat";
     IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g'); do
         log "Executing 'export $row'";
         eval "export $row";
@@ -19,12 +19,13 @@ function backup_and_prepare() {
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
         echo "Windows mode: $WINDOWS_MODE"
         if [ "$WINDOWS_MODE" == "true" ]; then
-            load_env_from_windows_bat
-
-            docker stop infraxys-developer-tomcat;
-            docker stop infraxys-developer-web;
-            docker stop infraxys-developer-vault;
-            docker stop infraxys-developer-db;
+            load_env_from_windows_bat;
+            docker-compose -f stack.yml stop;
+            docker-compose -f stack.yml rm -f;
+            #docker stop infraxys-developer-tomcat;
+            #docker stop infraxys-developer-web;
+            #docker stop infraxys-developer-vault;
+            #docker stop infraxys-developer-db;
             #docker rm infraxys-developer-tomcat;
             #docker rm infraxys-developer-web;
             #docker rm infraxys-developer-vault;
