@@ -80,6 +80,7 @@ function run_upgrade_scripts() {
                     log "Would execute script $f.";
                 else
                     log "Executing script $f.";
+                    chmod u+x "$f";
                     ./$f;
                     cd /bash; # ensure we're back in the right directory
                 fi;
