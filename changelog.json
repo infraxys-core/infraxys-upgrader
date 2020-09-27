@@ -1,6 +1,17 @@
 {
   "log": [
     {
+      "version": "3.0.20",
+      "date": "2020-09-27",
+      "product": "Infraxys Developer",
+      "changes": [
+        {
+          "type": "Changed",
+          "title": "Moved from HTTPS to HTTP.",
+          "description": "You may want to update the port Infraxys listens on"
+        }
+      ]
+    },    {
       "version": "2.0.600",
       "date": "2020-09-20",
       "product": "Infraxys",

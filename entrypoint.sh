@@ -166,6 +166,8 @@ function perform_upgrade() {
     fi;
     log "Pulling latest provisioning server image";
     docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
+    log "Pulling latest web image";
+    docker pull quay.io/jeroenmanders/infraxys-web:latest;
 }
 
 function log() {
