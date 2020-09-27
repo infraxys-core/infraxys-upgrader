@@ -17,6 +17,7 @@ function backup_and_prepare() {
     log "Stopping and clearing the Infraxys Docker containers.";
     export SILENT="true";
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
+        cd /opt/infraxys/bin;
         echo "Windows mode: $WINDOWS_MODE"
         if [ "$WINDOWS_MODE" == "true" ]; then
             load_env_from_windows_bat;
@@ -31,7 +32,6 @@ function backup_and_prepare() {
             #docker rm infraxys-developer-vault;
             #docker rm infraxys-developer-db;
         else
-            cd /opt/infraxys/bin;
             ./stop.sh;
             ./rm.sh;
         fi;
