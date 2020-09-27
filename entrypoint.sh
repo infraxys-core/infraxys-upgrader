@@ -5,9 +5,6 @@ set -eo pipefail;
 export do_upgrade="false";
 
 function load_env_from_windows_bat() {
-echo "r0: $PATH"
-which mysql
-$mysql_command -N -e 'select * from version_history;'
     local batch_file="/opt/infraxys/bin/env.bat";
     orgIFS="$IFS";
     echo "orgIFS: $orgIFS";
@@ -17,10 +14,6 @@ $mysql_command -N -e 'select * from version_history;'
     done;
     IFS="$orgIFS"
     export LOCAL_DIR="$(echo "/$LOCAL_DIR" | sed 's/:\\/\//' | sed 's/\\/\//g')"; # we need to use Linux-paths in this container
-echo "r1: $PATH"
-which mysql
-$mysql_command -N -e 'select * from version_history;'
-
 }
 
 function backup_and_prepare() {
@@ -31,24 +24,9 @@ function backup_and_prepare() {
         cd /opt/infraxys/bin;
         echo "Windows mode: $WINDOWS_MODE"
         if [ "$WINDOWS_MODE" == "true" ]; then
-echo "r2: $PATH"
-which mysql
-$mysql_command -N -e 'select * from version_history;'
             load_env_from_windows_bat;
-echo "r3: $PATH"
-which mysql
-$mysql_command -N -e 'select * from version_history;'
-
             docker-compose -f stack.yml stop;
             docker-compose -f stack.yml rm -f;
-            #docker stop infraxys-developer-tomcat;
-            #docker stop infraxys-developer-web;
-            #docker stop infraxys-developer-vault;
-            #docker stop infraxys-developer-db;
-            #docker rm infraxys-developer-tomcat;
-            #docker rm infraxys-developer-web;
-            #docker rm infraxys-developer-vault;
-            #docker rm infraxys-developer-db;
         else
             ./stop.sh;
             ./rm.sh;
@@ -59,16 +37,13 @@ $mysql_command -N -e 'select * from version_history;'
         docker-compose -f stack.yml rm -f;
     fi;
     cd /opt/infraxys > /dev/null;
-#    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
-#    mkdir -p backups;
-#    tar -czf backups/$backup_filename --exclude='backups' *;
+    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
+    mkdir -p backups;
+    tar -czf backups/$backup_filename --exclude='backups' *;
     cd /opt/infraxys/bin;
 
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
-        if [ "$WINDOWS_MODE" == "true" ]; then
-            log "TOMCAT_VERSION: $TOMCAT_VERSION"
-            #docker start infraxys-developer-db;
-        else
+        if [ "$WINDOWS_MODE" != "true" ]; then
             . ./env.sh;
         fi;
     else
@@ -77,11 +52,7 @@ $mysql_command -N -e 'select * from version_history;'
     fi;
     log "Starting the database.";
     docker-compose -f stack.yml up -d db;
-    sleep 60;
-echo "r5: $PATH"
-which mysql
-$mysql_command -N -e 'select * from version_history;'
-
+    sleep 30;
 }
 
 function run_upgrade_scripts() {
@@ -125,8 +96,6 @@ function upgrade_database() {
         return;
     fi;
 
-    echo "c: $PATH"
-    $mysql_command -N -e 'select * from version_history;'
     do_upgrade="true";
     log "Upgrading from Infraxys DB version $current_release_number to $to_release_number.";
     cd sql;
@@ -144,11 +113,6 @@ function upgrade_database() {
                     log "Would execute SQL script $f.";
                 else
                     log "Executing SQL script $f.";
-                    pwd;
-                    ls -l
-                    echo "d: $PATH"
-                    $mysql_command -N -e 'select * from version_history;'
-                    cat $f
                     $mysql_command < $f;
                     log "Script $f finished."
                 fi;
@@ -162,19 +126,8 @@ function upgrade_database() {
 }
 
 function perform_upgrade() {
-        echo "a1: $PATH"
-    which mysql
-    $mysql_command -N -e 'select * from version_history;'
     backup_and_prepare;
-
-    echo "a2: $PATH"
-    which mysql
-    $mysql_command -N -e 'select * from version_history;'
-
     run_upgrade_scripts
-
-    echo "b: $PATH"
-    $mysql_command -N -e 'select * from version_history;'
     upgrade_database;
 
     log "Database upgrade complete.";
@@ -204,9 +157,7 @@ function perform_upgrade() {
         fi;
     fi;
 
-    if [ "$WINDOWS_MODE" == "true" ]; then
-        load_env_from_windows_bat;
-    else
+    if [ "$WINDOWS_MODE" != "true" ]; then
         if [ "$infraxys_mode" == "DEVELOPER" ]; then
             . ./env.sh;
         else
