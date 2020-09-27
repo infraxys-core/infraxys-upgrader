@@ -4,6 +4,14 @@ set -eo pipefail;
 
 export do_upgrade="false";
 
+function load_env_from_windows_bat() {
+    local batch_file="$1";
+    IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g'); do
+        log "Executing 'export $row'";
+        eval "export $row";
+    done;
+}
+
 function backup_and_prepare() {
     local backup_filename="infraxys-full-backup-$(date +%Y%m%d%H%M%S)-${current_release_number}.tgz";
     log "Stopping and clearing the Infraxys Docker containers.";
@@ -11,6 +19,8 @@ function backup_and_prepare() {
     if [ "$infraxys_mode" == "DEVELOPER" ]; then
         echo "Windows mode: $WINDOWS_MODE"
         if [ "$WINDOWS_MODE" == "true" ]; then
+            load_env_from_windows_bat
+
             docker stop infraxys-developer-tomcat;
             docker stop infraxys-developer-web;
             docker stop infraxys-developer-vault;
@@ -30,22 +40,24 @@ function backup_and_prepare() {
         docker-compose -f stack.yml rm -f;
     fi;
     cd /opt/infraxys > /dev/null;
+    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
+    mkdir -p backups;
+    tar -czf backups/$backup_filename --exclude='backups' *;
+    cd /opt/infraxys/bin;
     if [ "$WINDOWS_MODE" == "true" ]; then
-        docker start infraxys-developer-db;
+        load_env_from_windows_bat;
+        log "TOMCAT_VERSION: $TOMCAT_VERSION"
+        #docker start infraxys-developer-db;
     else
-        log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
-        mkdir -p backups;
-        tar -czf backups/$backup_filename --exclude='backups' *;
         if [ "$infraxys_mode" == "DEVELOPER" ]; then
-            cd /opt/infraxys/bin;
             . ./env.sh;
         else
             cd /opt/infraxys/docker/infraxys;
             . ../env;
         fi;
-        log "Starting the database.";
-        docker-compose -f stack.yml up -d db;
     fi;
+    log "Starting the database.";
+    docker-compose -f stack.yml up -d db;
     sleep 30;
 }
 
@@ -67,6 +79,7 @@ function run_upgrade_scripts() {
                 else
                     log "Executing script $f.";
                     ./$f;
+                    cd /bash; # ensure we're back in the right directory
                 fi;
                 tmp_release="$file_version";
             fi;
@@ -151,19 +164,16 @@ function perform_upgrade() {
     fi;
 
     if [ "$WINDOWS_MODE" == "true" ]; then
-        echo
-        echo "===================="
-        echo "Please start Infraxys using up.bat";
-        echo "===================="
+        load_env_from_windows_bat;
     else
-        log "Starting Infraxys";
         if [ "$infraxys_mode" == "DEVELOPER" ]; then
             . ./env.sh;
         else
             . ../env;
         fi;
-        docker-compose -f stack.yml up -d;
     fi;
+    log "Starting Infraxys";
+    docker-compose -f stack.yml up -d;
     log "Pulling latest provisioning server image";
     docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
     log "Pulling latest web image";

@@ -7,8 +7,8 @@
       "changes": [
         {
           "type": "Changed",
-          "title": "Moved from HTTPS to HTTP.",
-          "description": "You may want to update the port Infraxys listens on"
+          "title": "[ATTENTION] Moved from HTTPS to HTTP. You need to update your Docker configuration after the upgrade",
+          "description": "Infraxys Developer will run on http://localhost:<PORT> instead of https://localhost:<PORT> after this upgrade. You will need to replace '- ${LOCAL_PORT}
         }
       ]
     },    {
