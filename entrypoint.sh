@@ -141,9 +141,13 @@ function upgrade_database() {
 }
 
 function perform_upgrade() {
+        echo "a1: $PATH"
+    which mysql
+    $mysql_command -N -e 'select * from version_history;'
     backup_and_prepare;
 
-    echo "a: $PATH"
+    echo "a2: $PATH"
+    which mysql
     $mysql_command -N -e 'select * from version_history;'
 
     run_upgrade_scripts
@@ -251,4 +255,7 @@ log "Retrieving the current DB version from the database.";
 $mysql_command -N -e 'select * from version_history;'
 export current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
 log "Current release: $current_release_number";
+    echo "a0: $PATH"
+    which mysql
+    $mysql_command -N -e 'select * from version_history;'
 perform_upgrade "$@";
