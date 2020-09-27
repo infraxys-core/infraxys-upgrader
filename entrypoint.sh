@@ -6,9 +6,9 @@ export do_upgrade="false";
 
 function load_env_from_windows_bat() {
     local batch_file="/opt/infraxys/bin/env.bat";
-    IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g'); do
-        log "Executing 'export $row'";
-        eval "export $row";
+    IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g' | sed -E "s/=/='/"); do
+        log "Executing export $row'";
+        eval "export $row'";
     done;
 }
 
