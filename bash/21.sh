@@ -4,7 +4,7 @@ if [ "$infraxys_mode" == "DEVELOPER" ]; then
     sed -i'' -e "s/{LOCAL_PORT}:443/{LOCAL_PORT}:80/g" /opt/infraxys/bin/stack.yml;
 
     if [ "$WINDOWS_MODE" == "true" ]; then
-        log "Copying 21/rm.bat to Infraxys bin directory.";
-        cp 21/rm.bat /opt/infraxys/bin;
+        log "Copying files to Infraxys bin directory.";
+        cp 21/* /opt/infraxys/bin/;
     fi;
 fi;

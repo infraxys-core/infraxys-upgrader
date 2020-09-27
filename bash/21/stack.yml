@@ -1,0 +1,97 @@
+version: '3.7'
+
+networks:
+  infraxys-developer:
+    name: ${NETWORK_PREFIX}infraxys-developer
+
+services:
+
+  db:
+    image: ${DB_IMAGE}:${DB_VERSION}
+    container_name: ${CONTAINER_PREFIX}-db
+    labels:
+      io.infraxys.project: "infraxys-db"
+      io.infraxys.name: "db"
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: "infraxys"
+      MYSQL_USER: "infraxys"
+      MYSQL_PASSWORD: "infraxys"
+    volumes:
+      - ${LOCAL_DIR}/data/mysql:/var/lib/mysql:rw
+    networks:
+      - infraxys-developer
+    command:
+      '${MYSQLD_COMMAND}'
+
+  vault:
+    image: ${VAULT_IMAGE}:${VAULT_VERSION}
+    container_name: ${CONTAINER_PREFIX}-vault
+    restart: always
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ${LOCAL_DIR}/data/vault:/vault/data:rw
+    networks:
+      - infraxys-developer
+
+  tomcat:
+    image: ${TOMCAT_IMAGE}:${TOMCAT_VERSION}
+    container_name: ${CONTAINER_PREFIX}-tomcat
+    labels:
+      io.infraxys.project: "infraxys"
+      io.infraxys.name: "tomcat"
+    restart: always
+    depends_on:
+      - db
+      - vault
+    environment:
+      CATALINA_OPTS: -Xmx1024m -Xms512m -XX:ThreadStackSize=500 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses -Dproperties.file=/usr/local/tomcat/conf/infraxys.properties -Dlog4j.configuration=file:/usr/local/tomcat/conf/log4j.xml
+      SERVER_NAME: "${SERVER_NAME}"
+      PARENT_OS: "${PARENT_OS}"
+      SERVER_REQUIRES_TEAM: "false"
+      INFRAXYS_MODE: "developer"
+      DISABLE_ACE_EDITOR: "false"
+      HOST_INFRAXYS_DIR: "${LOCAL_DIR}"
+      INFRAXYS_MODULE_URL: "git@github.com:infraxys-modules/infraxys-core.git"
+      INFRAXYS_MODULE_BRANCH: "master"
+      CONTAINER_PREFIX: ${CONTAINER_PREFIX}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${LOCAL_DIR}/config:/opt/infraxys/config:rw
+      - ${LOCAL_DIR}/modules:/opt/infraxys/modules:rw
+      - ${LOCAL_DIR}/environments:/opt/infraxys/environments:rw
+      - ${LOCAL_DIR}/work:/opt/infraxys/work:rw
+      - ${LOCAL_DIR}/cache:/opt/infraxys/cache:ro
+      - type: volume
+        source: InfraxysTempVolume
+        target: /tempVolume
+        volume:
+          nocopy: true
+    networks:
+      - infraxys-developer
+
+  web:
+    image: ${WEB_IMAGE}:${WEB_VERSION}
+    container_name: ${CONTAINER_PREFIX}-web
+    labels:
+      io.infraxys.project: "infraxys"
+      io.infraxys.name: "web"
+    restart: always
+    depends_on:
+      - tomcat
+    ports:
+      - ${LOCAL_PORT}:8080`
+    environment:
+      DEBUG: "false"
+      TOMCAT_INSTANCE: "infraxys-tomcat"
+      OAUTH2_INSTANCE: "infraxys-oauth2"
+      USERNAME: "${INFRAXYS_USERNAME}"
+      FULLNAME: "${INFRAXYS_FULLNAME}"
+    networks:
+      - infraxys-developer
+
+volumes:
+  InfraxysTempVolume:
+    name: InfraxysTempVolume
