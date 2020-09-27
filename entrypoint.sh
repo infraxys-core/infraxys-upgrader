@@ -9,10 +9,13 @@ echo "r0: $PATH"
 which mysql
 $mysql_command -N -e 'select * from version_history;'
     local batch_file="/opt/infraxys/bin/env.bat";
+    orgIFS="$IFS";
+    echo "orgIFS: $orgIFS";
     IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g' | sed -E "s/=/='/" | sed 's/\r//g'); do
         log "Executing export $row'";
         eval "export $row'";
     done;
+    IFS="$orgIFS"
     export LOCAL_DIR="$(echo "/$LOCAL_DIR" | sed 's/:\\/\//' | sed 's/\\/\//g')"; # we need to use Linux-paths in this container
 echo "r1: $PATH"
 which mysql
