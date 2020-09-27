@@ -104,6 +104,8 @@ function upgrade_database() {
         return;
     fi;
 
+    echo "c: $PATH"
+    $mysql_command -N -e 'select * from version_history;'
     do_upgrade="true";
     log "Upgrading from Infraxys DB version $current_release_number to $to_release_number.";
     cd sql;
@@ -121,6 +123,11 @@ function upgrade_database() {
                     log "Would execute SQL script $f.";
                 else
                     log "Executing SQL script $f.";
+                    pwd;
+                    ls -l
+                    echo "d: $PATH"
+                    $mysql_command -N -e 'select * from version_history;'
+                    cat $f
                     $mysql_command < $f;
                     log "Script $f finished."
                 fi;
@@ -136,7 +143,13 @@ function upgrade_database() {
 function perform_upgrade() {
     backup_and_prepare;
 
+    echo "a: $PATH"
+    $mysql_command -N -e 'select * from version_history;'
+
     run_upgrade_scripts
+
+    echo "b: $PATH"
+    $mysql_command -N -e 'select * from version_history;'
     upgrade_database;
 
     log "Database upgrade complete.";
