@@ -5,12 +5,19 @@ set -eo pipefail;
 export do_upgrade="false";
 
 function load_env_from_windows_bat() {
+echo "r0: $PATH"
+which mysql
+$mysql_command -N -e 'select * from version_history;'
     local batch_file="/opt/infraxys/bin/env.bat";
     IFS=$'\n' && for row in $(grep '^set ' "$batch_file" | sed 's/set //g' | sed -E "s/=/='/" | sed 's/\r//g'); do
         log "Executing export $row'";
         eval "export $row'";
     done;
     export LOCAL_DIR="$(echo "/$LOCAL_DIR" | sed 's/:\\/\//' | sed 's/\\/\//g')"; # we need to use Linux-paths in this container
+echo "r1: $PATH"
+which mysql
+$mysql_command -N -e 'select * from version_history;'
+
 }
 
 function backup_and_prepare() {
@@ -21,7 +28,14 @@ function backup_and_prepare() {
         cd /opt/infraxys/bin;
         echo "Windows mode: $WINDOWS_MODE"
         if [ "$WINDOWS_MODE" == "true" ]; then
+echo "r2: $PATH"
+which mysql
+$mysql_command -N -e 'select * from version_history;'
             load_env_from_windows_bat;
+echo "r3: $PATH"
+which mysql
+$mysql_command -N -e 'select * from version_history;'
+
             docker-compose -f stack.yml stop;
             docker-compose -f stack.yml rm -f;
             #docker stop infraxys-developer-tomcat;
@@ -42,25 +56,29 @@ function backup_and_prepare() {
         docker-compose -f stack.yml rm -f;
     fi;
     cd /opt/infraxys > /dev/null;
-    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
-    mkdir -p backups;
-    tar -czf backups/$backup_filename --exclude='backups' *;
+#    log "Creating backup file $infraxys_host_root/backups/$backup_filename.";
+#    mkdir -p backups;
+#    tar -czf backups/$backup_filename --exclude='backups' *;
     cd /opt/infraxys/bin;
-    if [ "$WINDOWS_MODE" == "true" ]; then
-        load_env_from_windows_bat;
-        log "TOMCAT_VERSION: $TOMCAT_VERSION"
-        #docker start infraxys-developer-db;
-    else
-        if [ "$infraxys_mode" == "DEVELOPER" ]; then
-            . ./env.sh;
+
+    if [ "$infraxys_mode" == "DEVELOPER" ]; then
+        if [ "$WINDOWS_MODE" == "true" ]; then
+            log "TOMCAT_VERSION: $TOMCAT_VERSION"
+            #docker start infraxys-developer-db;
         else
-            cd /opt/infraxys/docker/infraxys;
-            . ../env;
+            . ./env.sh;
         fi;
+    else
+        cd /opt/infraxys/docker/infraxys;
+        . ../env;
     fi;
     log "Starting the database.";
     docker-compose -f stack.yml up -d db;
-    sleep 30;
+    sleep 60;
+echo "r5: $PATH"
+which mysql
+$mysql_command -N -e 'select * from version_history;'
+
 }
 
 function run_upgrade_scripts() {
@@ -255,7 +273,4 @@ log "Retrieving the current DB version from the database.";
 $mysql_command -N -e 'select * from version_history;'
 export current_release_number="$($mysql_command -N -e 'select max(release_number) from version_history;')";
 log "Current release: $current_release_number";
-    echo "a0: $PATH"
-    which mysql
-    $mysql_command -N -e 'select * from version_history;'
 perform_upgrade "$@";
