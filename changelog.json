@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "3.0.24",
+      "date": "2020-10-04",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Changed",
+          "title": "Minor bugfixes and improvements",
+          "description": ""
+        }
+      ]
+    },
+    {
       "version": "3.0.21",
       "date": "2020-09-27",
       "product": "Infraxys Developer",
@@ -11,7 +23,8 @@
           "description": "Infraxys Developer will run on http://localhost:<PORT> instead of https://localhost:<PORT> after this upgrade."
         }
       ]
-    },    {
+    },
+    {
       "version": "2.0.600",
       "date": "2020-09-20",
       "product": "Infraxys",

@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.24] - 2020-10-04 - [Infraxys](https://infraxys.io)
+
+## Changed
+- Minor bugfixes and improvements
+    > 
+
 ## [3.0.21] - 2020-09-27 - [Infraxys Developer](https://infraxys.io)
 
 ## Changed
