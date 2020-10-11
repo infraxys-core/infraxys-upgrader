@@ -1,6 +1,7 @@
 if [ "$infraxys_mode" == "DEVELOPER" ]; then
     if [ "$WINDOWS_MODE" == "true" ]; then
-        cat >> /opt/infraxys/config/variables <<EOF
+        cat >> /opt/infraxys/bin/env.bat <<EOF
+
 set GLOBAL_ZONE_LIMIT_KEY=binary_remote_addr
 set GLOBAL_ZONE_MEMORY=10m
 set GLOBAL_ZONE_RATE=100r

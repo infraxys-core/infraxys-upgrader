@@ -157,7 +157,11 @@ function perform_upgrade() {
         fi;
     fi;
 
-    if [ "$WINDOWS_MODE" != "true" ]; then
+    if [ "$WINDOWS_MODE" == "true" ]; then
+        cat env.bat | grep '^set ' | sed 's/set /export /g' > /tmp/env;
+        chmod u+x /tmp/env;
+        . /tmp/env;
+    else
         if [ "$infraxys_mode" == "DEVELOPER" ]; then
             . ./env.sh;
         else
