@@ -158,9 +158,7 @@ function perform_upgrade() {
     fi;
 
     if [ "$WINDOWS_MODE" == "true" ]; then
-        cat env.bat | grep '^set ' | sed 's/set /export /g' > /tmp/env;
-        chmod u+x /tmp/env;
-        . /tmp/env;
+        load_env_from_windows_bat;
     else
         if [ "$infraxys_mode" == "DEVELOPER" ]; then
             . ./env.sh;
