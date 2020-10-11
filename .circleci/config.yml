@@ -37,8 +37,8 @@ jobs:
             export FULL_VERSION="$(cat VERSION)_${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}"
             ./build.sh "$FULL_VERSION";
 
-            echo "Pushing ${IMAGE}:${FULL_VERSION}.";
-            docker push ${IMAGE}:${FULL_VERSION};
+            #echo "Pushing ${IMAGE}:${FULL_VERSION}.";
+            #docker push ${IMAGE}:${FULL_VERSION};
 
       - run:
           name: Docker push release and latest for master only

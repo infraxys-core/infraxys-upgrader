@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "3.0.30",
+      "date": "2020-10-11",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Configure rate limits for the frontend Nginx instances",
+          "description": "The following variables can be used to fine-tune rate limiting: \n\n| Setting | Default |\n| ------- | ------- |\n| GLOBAL_ZONE_LIMIT_KEY | binary_remote_addr |\n | GLOBAL_ZONE_MEMORY | 10m |\n| GLOBAL_ZONE_RATE | 100r |\n| ACTION_ZONE_LIMIT_KEY | binary_remote_addr |\n| ACTION_ZONE_MEMORY | 10m |\n| ACTION_ZONE_RATE | 100r |\n| ACTION_ZONE_LIMIT_BURST | 100 |\n| ACTION_ZONE_LIMIT_DELAY | 50 |\n\nThe action zone settings are for calls to /api/v1/actions. Global zone settings cover all the rest.\nThe Nginx container needs to be restarted to apply changes.\n\nSee [ngx_http_limit_req_module module documentation](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html) for more information.\n"
+        }
+      ]
+    },
+    {
       "version": "3.0.24",
       "date": "2020-10-04",
       "product": "Infraxys",

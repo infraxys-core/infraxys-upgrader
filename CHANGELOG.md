@@ -2,6 +2,29 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.30] - 2020-10-11 - [Infraxys](https://infraxys.io)
+
+## Added
+- Configure rate limits for the frontend Nginx instances
+    > The following variables can be used to fine-tune rate limiting: 
+
+| Setting | Default |
+| ------- | ------- |
+| GLOBAL_ZONE_LIMIT_KEY | binary_remote_addr |
+ | GLOBAL_ZONE_MEMORY | 10m |
+| GLOBAL_ZONE_RATE | 100r |
+| ACTION_ZONE_LIMIT_KEY | binary_remote_addr |
+| ACTION_ZONE_MEMORY | 10m |
+| ACTION_ZONE_RATE | 100r |
+| ACTION_ZONE_LIMIT_BURST | 100 |
+| ACTION_ZONE_LIMIT_DELAY | 50 |
+
+The action zone settings are for calls to /api/v1/actions. Global zone settings cover all the rest.
+The Nginx container needs to be restarted to apply changes.
+
+See [ngx_http_limit_req_module module documentation](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html) for more information.
+
+
 ## [3.0.24] - 2020-10-04 - [Infraxys](https://infraxys.io)
 
 ## Changed
