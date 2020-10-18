@@ -1,6 +1,44 @@
 {
   "log": [
     {
+      "version": "3.0.41",
+      "date": "2020-10-18",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Root admins can manage all action REST aliases",
+          "description": "Administrators of the root project now have an extra tab with a list of all action aliases. Aliases can be changed and removed using this list.\nAction REST aliasses are paths that can be used to trigger actions using the /api/v1/actions endpoint."
+        },
+        {
+          "type": "Added",
+          "title": "Generate scripts per container",
+          "description": "Generate scripts just for one or more containers instead of for the whole environment at once."
+        },
+        {
+          "type": "Added",
+          "title": "Skip generation of files and actions",
+          "description": "When Velocity variable 'skip_file_creation' is set to true while a file is generated, then the file won't be stored in the result and no action is created.\nUse this to skip actions like direct 'Terraform apply' in specific environments.\nSet variable 'skip_action_creation' to true if the file should be generated but no action should be created for it."
+        },
+        {
+          "type": "Added",
+          "title": "Dynamically set the menu caption and instance label for actions",
+          "description": "Set Velocity variable 'action_instance_label' for the value in the instance-column of the actions table and 'menu_caption' if you don't want to use the default caption for the action menus. Example Velocity:  \n\t\t```#set ($menu_caption = \"Apply $instance.getAttribute(\"apply_caption\")\"```"
+        }
+      ]
+    },
+    {
+      "date": "2020-10-18",
+      "product": "Terraform",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "New branch for Terraform 0.13.x",
+          "description": "Based on the master branch.\nThis branch already makes use of the new options for skipping file creation.\nAlso added packet 'Terraform generate actions attributes' which can be extended and used to optionally generate actions."
+        }
+      ]
+    },
+    {
       "version": "3.0.30",
       "date": "2020-10-11",
       "product": "Infraxys",

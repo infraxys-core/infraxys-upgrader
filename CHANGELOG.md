@@ -2,6 +2,30 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.41] - 2020-10-18 - [Infraxys](https://infraxys.io)
+
+## Added
+- Root admins can manage all action REST aliases
+    > Administrators of the root project now have an extra tab with a list of all action aliases. Aliases can be changed and removed using this list.
+Action REST aliasses are paths that can be used to trigger actions using the /api/v1/actions endpoint.
+- Generate scripts per container
+    > Generate scripts just for one or more containers instead of for the whole environment at once.
+- Skip generation of files and actions
+    > When Velocity variable 'skip_file_creation' is set to true while a file is generated, then the file won't be stored in the result and no action is created.
+Use this to skip actions like direct 'Terraform apply' in specific environments.
+Set variable 'skip_action_creation' to true if the file should be generated but no action should be created for it.
+- Dynamically set the menu caption and instance label for actions
+    > Set Velocity variable 'action_instance_label' for the value in the instance-column of the actions table and 'menu_caption' if you don't want to use the default caption for the action menus. Example Velocity:  
+		```#set ($menu_caption = "Apply $instance.getAttribute("apply_caption")"```
+
+## 2020-10-18 - [Terraform](https://github.com/infraxys-modules/terraform)
+
+## Added
+- New branch for Terraform 0.13.x
+    > Based on the master branch.
+This branch already makes use of the new options for skipping file creation.
+Also added packet 'Terraform generate actions attributes' which can be extended and used to optionally generate actions.
+
 ## [3.0.30] - 2020-10-11 - [Infraxys](https://infraxys.io)
 
 ## Added
