@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "3.0.84",
+      "date": "2020-11-08",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Create your own client applications with the framework of your choice: React, Vue, HTML and JavaScript, ...",
+          "description": "Write full-blown client-side, user-friendly applications that execute actions, use cached files, ... and deploy them into a module that's enabled in Infraxys. These applications can then be activated within Infraxys using (quickrunner) actions."
+        }
+      ]
+    },
+    {
       "version": "3.0.41",
       "date": "2020-10-18",
       "product": "Infraxys",

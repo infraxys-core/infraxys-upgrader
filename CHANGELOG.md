@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.84] - 2020-11-08 - [Infraxys](https://infraxys.io)
+
+## Added
+- Create your own client applications with the framework of your choice: React, Vue, HTML and JavaScript, ...
+    > Write full-blown client-side, user-friendly applications that execute actions, use cached files, ... and deploy them into a module that's enabled in Infraxys. These applications can then be activated within Infraxys using (quickrunner) actions.
+
 ## [3.0.41] - 2020-10-18 - [Infraxys](https://infraxys.io)
 
 ## Added
