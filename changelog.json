@@ -1,6 +1,17 @@
 {
   "log": [
     {
+      "version": "3.0.104",
+      "date": "2021-01-14",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "REST additions: download cached project files and functions for project management",
+          "description": "Generate files using actions and download them using the REST API.\nGet and manage user's projects using the REST API "
+        }
+      ]
+    },    {
       "version": "3.0.84",
       "date": "2020-11-08",
       "product": "Infraxys",

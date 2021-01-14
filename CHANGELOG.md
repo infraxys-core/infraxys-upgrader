@@ -2,6 +2,13 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.104] - 2021-01-14 - [Infraxys](https://infraxys.io)
+
+## Added
+- REST additions: download cached project files and functions for project management
+    > Generate files using actions and download them using the REST API.
+Get and manage user's projects using the REST API 
+
 ## [3.0.84] - 2020-11-08 - [Infraxys](https://infraxys.io)
 
 ## Added
