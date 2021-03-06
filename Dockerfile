@@ -5,7 +5,7 @@ RUN apk update \
   && apk add bash \
   && apk add mariadb-client \
   && apk add openrc docker \
-  && apk add libffi-dev openssl-dev gcc libc-dev make
+  && apk add libffi-dev openssl-dev gcc libc-dev rust cargo make
 
 #RUN apk add py-pip \
 #  && apk add python-dev libffi-dev openssl-dev gcc libc-dev make
