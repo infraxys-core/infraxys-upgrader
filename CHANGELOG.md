@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.137] - 2021-03-06 - [Infraxys](https://infraxys.io)
+
+## Added
+- Pass arbitrary JSON from an action to a client application
+    > Add JSON to the open client app request and use it using the clientJson variable in JavaScript.
+
 ## [3.0.104] - 2021-01-14 - [Infraxys](https://infraxys.io)
 
 ## Added
