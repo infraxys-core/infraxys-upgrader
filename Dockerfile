@@ -12,7 +12,7 @@ RUN apk update \
 RUN apk add python3
 RUN apk add py3-pip
 RUN  apk add python3-dev
-RUN pip3 install docker-compose
+RUN pip3 install setuptools_rust docker-compose
 
 
 COPY entrypoint.sh /entrypoint.sh
