@@ -168,8 +168,15 @@ function perform_upgrade() {
     fi;
     log "Pulling latest provisioning server image";
     docker pull quay.io/jeroenmanders/infraxys-provisioning-server:ubuntu-full-18.04-latest;
-    log "Pulling latest web image";
-    docker pull quay.io/jeroenmanders/infraxys-web:2.0;
+
+    if [ "$infraxys_mode" == "DEVELOPER" ]; then
+        log "Pulling latest Developer web image";
+        docker pull quay.io/jeroenmanders/infraxys-web-developer:2.0;
+    else
+        log "Pulling latest web image";
+        docker pull quay.io/jeroenmanders/infraxys-web:2.0;
+    fi;
+
     log "Pulling runner image";
     docker pull quay.io/jeroenmanders/infraxys-runner:$to_infraxys_version;
     log "Starting Infraxys";
