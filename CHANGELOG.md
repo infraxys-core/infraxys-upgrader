@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.141] - 2021-04-25 - [Infraxys](https://infraxys.io)
+
+## Added
+- Immediately go to a project from an environment
+    > The environment-form now contains an option to directly go to the project under which it is deployed.
+
 ## [3.0.137] - 2021-03-06 - [Infraxys](https://infraxys.io)
 
 ## Added

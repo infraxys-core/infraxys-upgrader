@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "3.0.141",
+      "date": "2021-04-25",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Immediately go to a project from an environment",
+          "description": "The environment-form now contains an option to directly go to the project under which it is deployed."
+        }
+      ]
+    },
+    {
       "version": "3.0.137",
       "date": "2021-03-06",
       "product": "Infraxys",
