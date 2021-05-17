@@ -2,6 +2,12 @@
 
 This page contains important changes done to Infraxys and its supported modules.
 
+## [3.0.144] - 2021-05-17 - [Infraxys](https://infraxys.io)
+
+## Added
+- Bux fix release
+    > Bug fix release.
+
 ## [3.0.141] - 2021-04-25 - [Infraxys](https://infraxys.io)
 
 ## Added

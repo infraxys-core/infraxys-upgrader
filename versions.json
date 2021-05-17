@@ -1,6 +1,12 @@
 {
   "versions": [
     {
+      "releaseNumber": 30,
+      "infraxysVersion": "3.0.144",
+      "releaseNotes": "See changelog",
+      "released": "2021-05-17"
+    },
+    {
       "releaseNumber": 29,
       "infraxysVersion": "3.0.141",
       "releaseNotes": "See changelog",

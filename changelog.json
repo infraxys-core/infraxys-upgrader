@@ -1,6 +1,18 @@
 {
   "log": [
     {
+      "version": "3.0.144",
+      "date": "2021-05-17",
+      "product": "Infraxys",
+      "changes": [
+        {
+          "type": "Added",
+          "title": "Bux fix release",
+          "description": "Bug fix release."
+        }
+      ]
+    },
+    {
       "version": "3.0.141",
       "date": "2021-04-25",
       "product": "Infraxys",
